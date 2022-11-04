@@ -10,8 +10,8 @@ public class ProfessorBD extends Database {
     private boolean check = false;
     public boolean insertProfessor(Professor professor) {
         connect();
-        String sql = "INSERT INTO professor(id,nome,cpf,rg,dataNasc,naturalidade,sexo," +
-                "cargo, disciplina, endereco, contato) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO professor(idProfessor,nomeProfessor,cpfProfessor,rgProfessor,dataNascP," +
+                "naturalidadeProfessor,sexoProfessor,cargo,disciplina,endereco,contato) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = connection.prepareStatement(sql);
@@ -54,14 +54,14 @@ public class ProfessorBD extends Database {
             result = statement.executeQuery(sql);
 
             while (result.next()){
-                Professor professorTemp = new Professor(result.getString("nome"),
-                        result.getString("cpf"), result.getString("rg"),
-                        result.getString("dataNasc"),  result.getString("naturalidade"),
-                        result.getString("sexo"), result.getString("cargo"),
+                Professor professorTemp = new Professor(result.getString("nomeProfessor"),
+                        result.getString("cpfProfessor"), result.getString("rgProfessor"),
+                        result.getString("dataNascP"),  result.getString("naturalidadeProfessor"),
+                        result.getString("sexoProfessor"), result.getString("cargo"),
                         result.getString("disciplina"), result.getString("endereco"),
                         result.getString("contato"));
 
-                professorTemp.setId(result.getInt("id"));
+                professorTemp.setId(result.getInt("idProfessor"));
 
                 System.out.println("ID: " + professorTemp.getId());
                 System.out.println("Nome do professor: " + professorTemp.getNome());
@@ -93,7 +93,7 @@ public class ProfessorBD extends Database {
     //-----------------------------------ATUALIZANDO NOME NO REGISTRO----------------------------------------//
     public boolean updateProfessorEnd(int  id, String endereco){
         connect();
-        String sql = "UPDATE professor SET endereco=? WHERE id=?";
+        String sql = "UPDATE professor SET endereco=? WHERE idProfessor=?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1,endereco);
@@ -115,7 +115,7 @@ public class ProfessorBD extends Database {
     }
     public boolean updateProfessorCont(int  id, String contato){
         connect();
-        String sql = "UPDATE professor SET contato=?  WHERE id=?";
+        String sql = "UPDATE professor SET contato=? WHERE idProfessor=?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(1,contato);
@@ -138,7 +138,7 @@ public class ProfessorBD extends Database {
     //-----------------------------------------EXCLUINDO REGISTRO----------------------------------------------//
     public boolean deleteProfessor(int id){
         connect();
-        String sql = "DELETE FROM professor WHERE id=?";
+        String sql = "DELETE FROM professor WHERE idProfessor=?";
 
         try {
             pst = connection.prepareStatement(sql);

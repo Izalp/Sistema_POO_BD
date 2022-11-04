@@ -10,8 +10,8 @@ public class AlunoBD extends Database {
     private boolean check = false;
     public boolean insertAluno(Aluno aluno) {
         connect();
-        String sql = "INSERT INTO aluno (matricula,escolaOrigem,nome,cpf,rg,dataNasc,naturalidade, " +
-                "sexo,nomeFiliacao1,nomeFiliacao2,endereco,contato) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO aluno (matriculaAluno,escolaOrigem,nomeAluno,cpfAluno,rgAluno,dataNasc, naturalidadeAluno," +
+                "sexoAluno,nomeFiliacao1,nomeFiliacao2,enderecoAluno,contatoAluno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = connection.prepareStatement(sql);
@@ -54,13 +54,13 @@ public class AlunoBD extends Database {
 
             while (result.next()){
                 Aluno alunoTemp = new Aluno(result.getString("escolaOrigem"),
-                        result.getString("nome"), result.getString("cpf"),
-                        result.getString("rg"), result.getString("dataNasc"),
-                        result.getString("naturalidade"), result.getString("sexo"),
+                        result.getString("nomeAluno"), result.getString("cpfAluno"),
+                        result.getString("rgAluno"), result.getString("dataNasc"),
+                        result.getString("naturalidadeAluno"), result.getString("sexoAluno"),
                         result.getString("nomeFiliacao1"), result.getString("nomeFiliacao2"),
-                        result.getString("endereco"), result.getString("contato"));
+                        result.getString("enderecoAluno"), result.getString("contatoAluno"));
 
-                alunoTemp.setMatricula(result.getInt("matricula"));
+                alunoTemp.setMatricula(result.getInt("matriculaAluno"));
 
                 System.out.println("Número de matrícula: " + alunoTemp.getMatricula());
                 System.out.println("Escola de Origem: " + alunoTemp.getEscolaOrigem());
@@ -93,7 +93,7 @@ public class AlunoBD extends Database {
     //-----------------------------ATUALIZANDO ENDERECO E CONTATO NO REGISTRO----------------------------------//
     public boolean updateAlunoEnd(int  matricula, String endereco){
         connect();
-        String sqlend = "UPDATE aluno SET endereco=?, WHERE id=?";
+        String sqlend = "UPDATE aluno SET enderecoAluno=? WHERE matriculaAluno=?";
         try {
             pst = connection.prepareStatement(sqlend);
             pst.setString(1, endereco);
@@ -115,7 +115,7 @@ public class AlunoBD extends Database {
     }
     public boolean updateAlunoCont(int  matricula, String contato){
         connect();
-        String sqlcot = "UPDATE aluno SET contato=?  WHERE id=?";
+        String sqlcot = "UPDATE aluno SET contatoAluno=?  WHERE id=?";
         try {
             pst = connection.prepareStatement(sqlcot);
             pst.setString(  1,contato);
@@ -138,7 +138,7 @@ public class AlunoBD extends Database {
     //-----------------------------------------EXCLUINDO REGISTRO----------------------------------------------//
     public boolean deleteAluno(int id){
         connect();
-        String sql = "DELETE FROM aluno WHERE id=?";
+        String sql = "DELETE FROM aluno WHERE matriculaAluno=?";
 
         try {
             pst = connection.prepareStatement(sql);

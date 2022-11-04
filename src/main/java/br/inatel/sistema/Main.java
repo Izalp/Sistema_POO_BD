@@ -6,7 +6,6 @@ import br.inatel.sistema.usuarios.Professor;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
 
         AlunoBD alunoBD = new AlunoBD();
@@ -111,15 +110,19 @@ public class Main {
                         int matriculaAt;
 
                         if(atualizo == 1) { //-----------------------ATUALIZANDO ENDEREÇO------------------------
+                            System.out.println("Digite o número de matricula do aluno para atualização:");
                             matriculaAt = sc.nextInt();
                             sc.nextLine();
+                            System.out.println("Digite o novo endereço:");
                             String enderecoAt = sc.nextLine();
 
                             alunoBD.updateAlunoEnd(matriculaAt, enderecoAt);
                         }
                         else if(atualizo == 2){ //---------------------ATUALIZANDO CONTATO-----------------------
+                            System.out.println("Digite o número de matricula do aluno para atualização:");
                             matriculaAt = sc.nextInt();
                             sc.nextLine();
+                            System.out.println("Digite o novo contato:");
                             String contatoAt = sc.nextLine();
 
                             alunoBD.updateAlunoCont(matriculaAt, contatoAt);
@@ -206,15 +209,19 @@ public class Main {
                         int matriculaAt;
 
                         if(atualizo == 1) { //------------------------ATUALIZANDO ENDEREÇO-----------------------
+                            System.out.println("Digite o número de matricula do aluno para atualização:");
                             matriculaAt = sc.nextInt();
                             sc.nextLine();
+                            System.out.println("Digite o novo endereço:");
                             String enderecoAt = sc.nextLine();
 
                             professorBD.updateProfessorEnd(matriculaAt,enderecoAt);
                         }
                         else if(atualizo == 2){ //----------------------ATUALIZANDO CONTATO---------------------
+                            System.out.println("Digite o número de matricula do aluno para atualização:");
                             matriculaAt = sc.nextInt();
                             sc.nextLine();
+                            System.out.println("Digite o novo contato:");
                             String contatoAt = sc.nextLine();
 
                             professorBD.updateProfessorCont(matriculaAt, contatoAt);
