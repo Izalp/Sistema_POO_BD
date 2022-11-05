@@ -63,7 +63,7 @@ public class ProfessorBD extends Database {
 
                 professorTemp.setId(result.getInt("idProfessor"));
 
-                System.out.println("ID: " + professorTemp.getId());
+                System.out.println("Número de Identificação: " + professorTemp.getId());
                 System.out.println("Nome do professor: " + professorTemp.getNome());
                 System.out.println("Cpf do professor: " + professorTemp.getCpf());
                 System.out.println("Rg do professor: " + professorTemp.getRg());

@@ -9,7 +9,7 @@ public class Escola {
     private int id;
     private static int contador = 0;
 
-    public Escola(String nome, String cnpj, String localizacao, String contato, String id){
+    public Escola(String nome, String cnpj, String localizacao, String contato){
         this.nome = nome;
         this.cnpj = cnpj;
         this.localizacao = localizacao;
