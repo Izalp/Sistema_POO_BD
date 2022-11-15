@@ -1,7 +1,7 @@
-package br.inatel.sistema;
+package br.inatel.sistema.BD;
 
+import br.inatel.sistema.Database;
 import br.inatel.sistema.usuarios.Professor;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,6 +28,7 @@ public class ProfessorBD extends Database {
             pst.setString(11, professor.getContato());          //concatena nome na 11 ? do comando
             pst.execute();                                                   //executa o comando
             check = true;
+            System.out.println("Professor cadastrado com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
             check = false;

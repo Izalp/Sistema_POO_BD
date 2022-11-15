@@ -1,5 +1,6 @@
-package br.inatel.sistema;
+package br.inatel.sistema.BD;
 
+import br.inatel.sistema.Database;
 import br.inatel.sistema.usuarios.Aluno;
 
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class AlunoBD extends Database {
             pst.setString(12, aluno.getContato());           //concatena nome na 12 ? do comando
             pst.execute();                                                //executa o comando
             check = true;
+            System.out.println("Aluno cadastrado com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
             check = false;
