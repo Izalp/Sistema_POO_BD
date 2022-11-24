@@ -1,18 +1,18 @@
 package br.inatel.sistema.usuarios;
 
-public class Turmas {
+import br.inatel.sistema.BD.TurmaBD;
 
+public class Turmas {
+    private static TurmaBD turmaBD = new TurmaBD();
     private int serie;
     private int numTurma;
     private int id;
-    private static int contador = 0;
 
-    public Turmas(int serie, int turma){
+    private static int contador = turmaBD.getLastId();
+
+    public Turmas(int serie, int numTurma){
         this.serie = serie;
         this.numTurma = numTurma;
-
-        this.contador++;
-        this.id = contador;
     }
 
     public int getSerie() {

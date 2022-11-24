@@ -1,3 +1,4 @@
+
 package br.inatel.sistema.BD;
 
 import br.inatel.sistema.Database;
@@ -7,6 +8,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class EscolaBD extends Database {
+    public boolean validacao (int acesso){
+
+        //Verificar se o id existe no BD
+        // se for true, validou
+        // se for false, cadastra
+        int id = 0;
+        boolean validou = false;
+        try {
+            String sql = "SELECT idEscola FROM Escola";
+            connect();
+            pst = connection.prepareStatement(sql);
+            result = pst.executeQuery();
+            while (result.next()) {
+                id = result.getInt("idEscola");
+                if(acesso == id)
+                    validou = true;
+                else System.out.println("Id inválido!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return validou;
+    }
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
     private boolean check = false;
     public boolean insertEscola(Escola escola) {
@@ -35,6 +66,29 @@ public class EscolaBD extends Database {
             }
         }
         return check;
+    }
+    public int getLastId() {
+        int id = 0;
+        try {
+            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            connect();
+            pst = connection.prepareStatement(sql);
+            result = pst.executeQuery();
+            while (result.next()) {
+                id = result.getInt("idTurma");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return id;
     }
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
     public ArrayList<Escola> researchEscola(){

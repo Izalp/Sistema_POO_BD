@@ -1,22 +1,22 @@
 package br.inatel.sistema.usuarios;
 
-public class Escola {
+import br.inatel.sistema.BD.EscolaBD;
 
+public class Escola {
+    private static EscolaBD escolaBD = new EscolaBD();
     private String nome;
     private String cnpj;
     private String localizacao;
     private String contato;
     private int id;
-    private static int contador = 0;
+
+    private static int contador = escolaBD.getLastId();
 
     public Escola(String nome, String cnpj, String localizacao, String contato){
         this.nome = nome;
         this.cnpj = cnpj;
         this.localizacao = localizacao;
         this.contato = contato;
-
-        this.contador++;
-        this.id = contador;
     }
 
     public String getNome() {

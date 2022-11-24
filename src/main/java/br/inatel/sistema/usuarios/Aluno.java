@@ -1,6 +1,9 @@
 package br.inatel.sistema.usuarios;
 
+import br.inatel.sistema.BD.AlunoBD;
+
 public class Aluno{
+    private static AlunoBD alunoBD = new AlunoBD();
     private String escolaOrigem;
     private String nome;
     private String cpf;
@@ -13,7 +16,8 @@ public class Aluno{
     private String endereco;
     private String contato;
     private int matricula;
-    private static int contador = 0;
+
+    private static int contador = alunoBD.getLastId();
 
     public Aluno (String escolaOrigem, String nome, String cpf, String rg, String dataNasc, String naturalidade,
                   String sexo, String nomeFiliacao1, String nomeFiliacao2, String endereco, String contato){
@@ -28,9 +32,6 @@ public class Aluno{
         this.nomeFiliacao2 = nomeFiliacao2;
         this.endereco = endereco;
         this.contato = contato;
-
-        this.contador++;
-        this.matricula = contador;
     }
 
     public int getMatricula() {
@@ -44,11 +45,13 @@ public class Aluno{
     public String getNome() {
         return nome;
     }
+
     public String getCpf() {
         return cpf;
     }
 
     public String getRg() {return rg;}
+
     public String getDataNasc() {
         return dataNasc;
     }

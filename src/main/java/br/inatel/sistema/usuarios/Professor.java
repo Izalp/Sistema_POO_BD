@@ -1,6 +1,9 @@
 package br.inatel.sistema.usuarios;
 
+import br.inatel.sistema.BD.ProfessorBD;
+
 public class Professor{
+    private static ProfessorBD professorBD = new ProfessorBD();
     private String nome;
     private String cpf;
     private String rg;
@@ -11,10 +14,9 @@ public class Professor{
     private String disciplina;
     private String endereco;
     private String contato;
-
     private int id;
 
-    private static int contador = 0;
+    private static int contador = professorBD.getLastId();
 
     public Professor (String nome, String cpf,  String rg, String dataNasc, String naturalidade, String sexo,
                       String cargo, String disciplina, String endereco, String contato){
@@ -28,9 +30,6 @@ public class Professor{
         this.disciplina = disciplina;
         this.endereco = endereco;
         this.contato = contato;
-
-        this.contador++;
-        this.id = contador;
     }
 
     public String getNome() {
@@ -46,7 +45,6 @@ public class Professor{
     public String getDataNasc() {
         return dataNasc;
     }
-
 
     public String getNaturalidade() {return naturalidade;}
 

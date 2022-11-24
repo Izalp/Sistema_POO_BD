@@ -1,11 +1,8 @@
 package br.inatel.sistema.BD;
 
 import br.inatel.sistema.Database;
-import br.inatel.sistema.usuarios.Aluno;
 import br.inatel.sistema.usuarios.Turmas;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class TurmaBD extends Database {
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
@@ -16,13 +13,12 @@ public class TurmaBD extends Database {
         while(quant != 0) {
 
             connect();
-            String sql = "INSERT INTO Turma (idTurma,serie,NumTurmas) VALUES (?,?,?)";
+            String sql = "INSERT INTO Turma (serie,numTurma) VALUES (?,?)";
 
             try {
-                pst = connection.prepareStatement(sql);
-                pst.setInt(1, turmas.getId());                   //concatena nome na 1 ? do comando
-                pst.setInt(2, turmas.getSerie());                //concatena nome na 2 ? do comando
-                pst.setInt(3, quant);                            //concatena nome na 3 ? do comando
+                pst = connection.prepareStatement(sql);                  //concatena nome na 1 ? do comando
+                pst.setInt(1, turmas.getSerie());                //concatena nome na 2 ? do comando
+                pst.setInt(2, quant);                            //concatena nome na 3 ? do comando
                 pst.execute();                                               //executa o comando
                 check = true;
                 System.out.println("Turma cadastrada com sucesso!");
@@ -42,5 +38,27 @@ public class TurmaBD extends Database {
         }
         return check;
     }
+    public int getLastId() {
+        int id = 0;
+        try {
+            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            connect();
+            pst = connection.prepareStatement(sql);
+            result = pst.executeQuery();
+            while (result.next()) {
+                id = result.getInt("idTurma");
+            }
 
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return id;
+    }
 }

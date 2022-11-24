@@ -42,7 +42,29 @@ public class ProfessorBD extends Database {
         }
         return check;
     }
+    public int getLastId() {
+        int id = 0;
+        try {
+            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            connect();
+            pst = connection.prepareStatement(sql);
+            result = pst.executeQuery();
+            while (result.next()) {
+                id = result.getInt("idTurma");
+            }
 
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return id;
+    }
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
 
     public ArrayList<Professor> researchProfessor(){
