@@ -35,9 +35,7 @@ public class Escola {
         return contato;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public void setNome(String nome) {
         this.nome = nome;
