@@ -11,12 +11,13 @@ public class Coordenador {
     private String naturalidade;
     private String endereco;
     private String contato;
+    private int idEscola;
     private int id;
 
     private static int contador = coordenadorBD.getLastId();
 
     public Coordenador (String nome, String cpf,  String rg, String dataNasc, String naturalidade,
-                        String endereco, String contato){
+                        String endereco, String contato, int idEscola){
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
@@ -24,6 +25,7 @@ public class Coordenador {
         this.naturalidade = naturalidade;
         this.endereco = endereco;
         this.contato = contato;
+        this.idEscola = idEscola;
     }
 
     public String getNome() {
@@ -51,6 +53,10 @@ public class Coordenador {
     }
 
     public int getId(){ return id; }
+
+    public int getIdEscola() {
+        return idEscola;
+    }
 
     public void setNome(String nome) {
         this.nome = nome;

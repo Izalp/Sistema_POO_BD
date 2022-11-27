@@ -11,7 +11,7 @@ public class DiretorBD extends Database {
     public boolean insertDiretor(Diretor diretor) {
         connect();
         String sql = "INSERT INTO Diretor (idDiretor,nomeDiretor,cpfDiretor,rgDiretor,dataNascD,naturalidadeDiretor," +
-                "endereco,contato) VALUES (?,?,?,?,?,?,?,?)";
+                "endereco,contato,Escola_idEscola) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = connection.prepareStatement(sql);
@@ -23,6 +23,7 @@ public class DiretorBD extends Database {
             pst.setString(6, diretor.getNaturalidade());       //concatena nome na 6 ? do comando
             pst.setString(7, diretor.getEndereco());           //concatena nome na 7 ? do comando
             pst.setString(8, diretor.getContato());            //concatena nome na 8 ? do comando
+            pst.setInt(9, diretor.getIdEscola());              //concatena nome na 9 ? do comando
             pst.execute();                                                  //executa o comando
             check = true;
             System.out.println("Diretor cadastrado com sucesso!");
@@ -39,17 +40,16 @@ public class DiretorBD extends Database {
         }
         return check;
     }
+    //----------------------------------------AUTO INCREMENT_ID-------------------------------------------//
     public int getLastId() {
         int id = 0;
         try {
-            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            String sql = "SELECT idDiretor FROM Diretor ORDER BY idDiretor DESC LIMIT 1";
             connect();
             pst = connection.prepareStatement(sql);
             result = pst.executeQuery();
-            while (result.next()) {
-                id = result.getInt("idTurma");
-            }
-
+            while (result.next())
+                id = result.getInt("idDiretor");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
         } finally {
@@ -76,7 +76,8 @@ public class DiretorBD extends Database {
                 Diretor diretorTemp = new Diretor(result.getString("nomeDiretor"),
                         result.getString("cpfDiretor"), result.getString("rgDiretor"),
                         result.getString("dataNascD"), result.getString("naturalidadeDiretor"),
-                        result.getString("endereco"), result.getString("contato"));
+                        result.getString("endereco"), result.getString("contato"),
+                        result.getInt("Escola_idEscola"));
 
                 diretorTemp.setId(result.getInt("idDiretor"));
 
@@ -104,7 +105,7 @@ public class DiretorBD extends Database {
         }
         return diretores;
     }
-    //-----------------------------ATUALIZANDO ENDERECO E CONTATO NO REGISTRO----------------------------------//
+    //-----------------------------------ATUALIZANDO ENDERECO NO REGISTRO----------------------------------------//
     public boolean updateDiretorEnd(int  id, String endereco){
         connect();
         String sqlend = "UPDATE Diretor SET endereco=? WHERE idDiretor=?";
@@ -127,6 +128,7 @@ public class DiretorBD extends Database {
         }
         return check;
     }
+    //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
     public boolean updateDiretorCont(int  id, String contato){
         connect();
         String sqlcot = "UPDATE Diretor SET contato=?  WHERE idDiretor=?";

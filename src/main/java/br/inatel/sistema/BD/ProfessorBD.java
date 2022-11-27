@@ -42,17 +42,16 @@ public class ProfessorBD extends Database {
         }
         return check;
     }
+    //------------------------------------AUTO INCREMENT_ID---------------------------------------------//
     public int getLastId() {
         int id = 0;
         try {
-            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            String sql = "SELECT idProfessor FROM Professor ORDER BY idProfessor DESC LIMIT 1";
             connect();
             pst = connection.prepareStatement(sql);
             result = pst.executeQuery();
-            while (result.next()) {
-                id = result.getInt("idTurma");
-            }
-
+            while (result.next())
+                id = result.getInt("idProfessor");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
         } finally {
@@ -66,7 +65,6 @@ public class ProfessorBD extends Database {
         return id;
     }
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
-
     public ArrayList<Professor> researchProfessor(){
         connect();
         ArrayList<Professor> professores = new ArrayList<>();
@@ -113,7 +111,7 @@ public class ProfessorBD extends Database {
         }
         return professores;
     }
-    //-----------------------------------ATUALIZANDO NOME NO REGISTRO----------------------------------------//
+    //-----------------------------------ATUALIZANDO ENDEREÇO NO REGISTRO----------------------------------------//
     public boolean updateProfessorEnd(int  id, String endereco){
         connect();
         String sql = "UPDATE professor SET endereco=? WHERE idProfessor=?";
@@ -136,6 +134,7 @@ public class ProfessorBD extends Database {
         }
         return check;
     }
+    //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
     public boolean updateProfessorCont(int  id, String contato){
         connect();
         String sql = "UPDATE professor SET contato=? WHERE idProfessor=?";

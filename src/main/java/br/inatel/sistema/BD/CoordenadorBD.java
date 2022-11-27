@@ -11,7 +11,7 @@ public class CoordenadorBD extends Database {
     public boolean insertCoordenador(Coordenador coordenador) {
         connect();
         String sql = "INSERT INTO Coordenador (idCoordenador,nomeCoordenador,cpfCoordenador,rgCoordenador, dataNascC, " +
-                 "naturalidadeCoordenador,enderecoCoordenador,contatoCoordenador) VALUES (?,?,?,?,?,?,?,?)";
+                "naturalidadeCoordenador,enderecoCoordenador,contatoCoordenador, Escola_idEscola) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = connection.prepareStatement(sql);
@@ -23,6 +23,7 @@ public class CoordenadorBD extends Database {
             pst.setString(6, coordenador.getNaturalidade());       //concatena nome na 6 ? do comando
             pst.setString(7, coordenador.getEndereco());           //concatena nome na 7 ? do comando
             pst.setString(8, coordenador.getContato());            //concatena nome na 8 ? do comando
+            pst.setInt(9,coordenador.getIdEscola());               //concatena nome na 9 ? do comando
             pst.execute();                                                      //executa o comando
             check = true;
             System.out.println("Coordenador cadastrado com sucesso!");
@@ -39,17 +40,16 @@ public class CoordenadorBD extends Database {
         }
         return check;
     }
+    //--------------------------------------------AUTO INCREMENT_ID-----------------------------------------------//
     public int getLastId() {
         int id = 0;
         try {
-            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            String sql = "SELECT idCoordenador FROM Coordenador ORDER BY idCoordenador DESC LIMIT 1";
             connect();
             pst = connection.prepareStatement(sql);
             result = pst.executeQuery();
-            while (result.next()) {
-                id = result.getInt("idTurma");
-            }
-
+            while (result.next())
+                id = result.getInt("idCoordenador");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
         } finally {
@@ -62,7 +62,7 @@ public class CoordenadorBD extends Database {
         }
         return id;
     }
-    //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
+    //----------------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
     public ArrayList<Coordenador> researchCoordenador(){
         connect();
         ArrayList<Coordenador> coordenadores = new ArrayList<>();
@@ -76,7 +76,8 @@ public class CoordenadorBD extends Database {
                 Coordenador coordenadorTemp = new Coordenador(result.getString("nomeCoordenador"),
                         result.getString("cpfCoordenador"), result.getString("rgCoordenador"),
                         result.getString("dataNascC"), result.getString("naturalidadeCoordenador"),
-                        result.getString("enderecoCoordenador"), result.getString("contatoCoordenador"));
+                        result.getString("enderecoCoordenador"), result.getString("contatoCoordenador"),
+                        result.getInt("Escola_idEscola"));
 
                 coordenadorTemp.setId(result.getInt("idCoordenador"));
 
@@ -104,7 +105,7 @@ public class CoordenadorBD extends Database {
         }
         return coordenadores;
     }
-    //-----------------------------ATUALIZANDO ENDERECO E CONTATO NO REGISTRO----------------------------------//
+    //-----------------------------------ATUALIZANDO ENDERECO NO REGISTRO----------------------------------------//
     public boolean updateCoordenadorEnd(int  id, String endereco){
         connect();
         String sqlend = "UPDATE Coordenador SET enderecoCoordenador=? WHERE idCoordenador=?";
@@ -127,6 +128,7 @@ public class CoordenadorBD extends Database {
         }
         return check;
     }
+    //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
     public boolean updateCoordenadorCont(int  id, String contato){
         connect();
         String sqlcot = "UPDATE Coordenador SET contatoCoordenador=?  WHERE idCoordenador=?";

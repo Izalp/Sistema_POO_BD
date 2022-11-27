@@ -10,8 +10,9 @@ public class AlunoBD extends Database {
     private boolean check = false;
     public boolean insertAluno(Aluno aluno) {
         connect();
-        String sql = "INSERT INTO aluno (matriculaAluno,escolaOrigem,nomeAluno,cpfAluno,rgAluno,dataNasc, naturalidadeAluno," +
-                "sexoAluno,nomeFiliacao1,nomeFiliacao2,enderecoAluno,contatoAluno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO aluno (matriculaAluno,escolaOrigem,nomeAluno,cpfAluno,rgAluno,dataNasc, " +
+                "naturalidadeAluno,sexoAluno,nomeFiliacao1,nomeFiliacao2,enderecoAluno,contatoAluno," +
+                "Turma_idTurma, Escola_idEscola) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = connection.prepareStatement(sql);
@@ -27,6 +28,8 @@ public class AlunoBD extends Database {
             pst.setString(10, aluno.getNomeFiliacao2());     //concatena nome na 10 ? do comando
             pst.setString(11, aluno.getEndereco());          //concatena nome na 11 ? do comando
             pst.setString(12, aluno.getContato());           //concatena nome na 12 ? do comando
+            pst.setInt(13, aluno.getIdTurma());              //concatena nome na 13 ? do comando
+            pst.setInt(14, aluno.getIdEscola());             //concatena nome na 14 ? do comando
             pst.execute();                                                //executa o comando
             check = true;
             System.out.println("Aluno cadastrado com sucesso!");
@@ -44,16 +47,15 @@ public class AlunoBD extends Database {
         return check;
     }
     public int getLastId() {
+        //------------------------------------AUTO INCREMENT_ID---------------------------------------------//
         int id = 0;
         try {
-            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
+            String sql = "SELECT matriculaAluno FROM Aluno ORDER BY matriculaAluno DESC LIMIT 1";
             connect();
             pst = connection.prepareStatement(sql);
             result = pst.executeQuery();
-            while (result.next()) {
-                id = result.getInt("idTurma");
-            }
-
+            while (result.next())
+                id = result.getInt("matriculaAluno");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
         } finally {
@@ -82,7 +84,8 @@ public class AlunoBD extends Database {
                         result.getString("rgAluno"), result.getString("dataNasc"),
                         result.getString("naturalidadeAluno"), result.getString("sexoAluno"),
                         result.getString("nomeFiliacao1"), result.getString("nomeFiliacao2"),
-                        result.getString("enderecoAluno"), result.getString("contatoAluno"));
+                        result.getString("enderecoAluno"), result.getString("contatoAluno"),
+                        result.getInt("Turma_idTurma"), result.getInt("Escola_idEscola"));
 
                 alunoTemp.setMatricula(result.getInt("matriculaAluno"));
 
@@ -114,12 +117,12 @@ public class AlunoBD extends Database {
         }
         return alunos;
     }
-    //-----------------------------ATUALIZANDO ENDERECO E CONTATO NO REGISTRO----------------------------------//
+    //-----------------------------------ATUALIZANDO ENDERECO NO REGISTRO----------------------------------------//
     public boolean updateAlunoEnd(int  matricula, String endereco){
         connect();
-        String sqlend = "UPDATE aluno SET enderecoAluno=? WHERE matriculaAluno=?";
+        String sql = "UPDATE aluno SET enderecoAluno=? WHERE matriculaAluno=?";
         try {
-            pst = connection.prepareStatement(sqlend);
+            pst = connection.prepareStatement(sql);
             pst.setString(1, endereco);
             pst.setInt(2,matricula);
             pst.execute();
@@ -137,12 +140,36 @@ public class AlunoBD extends Database {
         }
         return check;
     }
+    //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
     public boolean updateAlunoCont(int  matricula, String contato){
         connect();
-        String sqlcot = "UPDATE aluno SET contatoAluno=?  WHERE id=?";
+        String sql = "UPDATE aluno SET contatoAluno=?  WHERE id=?";
         try {
-            pst = connection.prepareStatement(sqlcot);
+            pst = connection.prepareStatement(sql);
             pst.setString(  1,contato);
+            pst.setInt(2,matricula);
+            pst.execute();
+            check = true;
+        }catch (SQLException e){
+            System.out.println("Erro de operação: " + e.getMessage());
+            check = false;
+        }finally {
+            try {
+                connection.close();
+                pst.close();
+            }catch (SQLException e){
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return check;
+    }
+    //-----------------------------------ATUALIZANDO TURMA NO REGISTRO----------------------------------------//
+    public boolean updateTurma (int  matricula, int id){
+        connect();
+        String sql = "UPDATE Aluno SET Turma_idTurma=?  WHERE matriculaAluno=?";
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt( 1,id);
             pst.setInt(2,matricula);
             pst.execute();
             check = true;

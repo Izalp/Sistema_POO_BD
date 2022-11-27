@@ -12,11 +12,12 @@ public class Diretor {
     private String endereco;
     private String contato;
     private int id;
+    private int idEscola;
 
     private static int contador = diretorBD.getLastId();
 
     public Diretor (String nome, String cpf,  String rg, String dataNasc, String naturalidade,
-                        String endereco, String contato){
+                        String endereco, String contato, int idEscola){
         this.nome = nome;
         this.cpf = cpf;
         this.rg = rg;
@@ -24,7 +25,8 @@ public class Diretor {
         this.naturalidade = naturalidade;
         this.endereco = endereco;
         this.contato = contato;
-    }
+        this.idEscola = idEscola;
+   }
 
     public String getNome() {
         return nome;
@@ -51,6 +53,8 @@ public class Diretor {
     }
 
     public int getId(){ return id; }
+
+    public int getIdEscola() { return idEscola; }
 
     public void setNome(String nome) {
         this.nome = nome;

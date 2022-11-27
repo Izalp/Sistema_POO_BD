@@ -17,10 +17,14 @@ public class Aluno{
     private String contato;
     private int matricula;
 
+    private int idTurma;
+    private int idEscola;
+
     private static int contador = alunoBD.getLastId();
 
     public Aluno (String escolaOrigem, String nome, String cpf, String rg, String dataNasc, String naturalidade,
-                  String sexo, String nomeFiliacao1, String nomeFiliacao2, String endereco, String contato){
+                  String sexo, String nomeFiliacao1, String nomeFiliacao2, String endereco, String contato,
+                  int idTurma, int idEscola){
         this.escolaOrigem = escolaOrigem;
         this.nome = nome;
         this.cpf = cpf;
@@ -32,6 +36,8 @@ public class Aluno{
         this.nomeFiliacao2 = nomeFiliacao2;
         this.endereco = endereco;
         this.contato = contato;
+        this.idTurma = idTurma;
+        this.idEscola = idEscola;
     }
 
     public int getMatricula() {
@@ -77,6 +83,10 @@ public class Aluno{
     public String getContato() {
         return contato;
     }
+
+    public int getIdTurma() { return idTurma; }
+
+    public int getIdEscola() { return idEscola; }
 
     public void setMatricula(int matricula) {
         this.matricula = matricula;

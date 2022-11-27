@@ -10,9 +10,10 @@ public class Turmas {
 
     private static int contador = turmaBD.getLastId();
 
-    public Turmas(int serie, int numTurma){
+    public Turmas(int serie, int numTurma, int id){
         this.serie = serie;
         this.numTurma = numTurma;
+        this.id = id;
     }
 
     public int getSerie() {
