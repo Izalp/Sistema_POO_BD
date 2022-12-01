@@ -1,20 +1,15 @@
 package br.inatel.sistema.usuarios;
 
-import br.inatel.sistema.BD.DiretorBD;
-
 public class Diretor {
-    private static DiretorBD diretorBD = new DiretorBD();
     private String nome;
-    private String cpf;
-    private String rg;
-    private String dataNasc;
-    private String naturalidade;
+    private final String cpf;
+    private final String rg;
+    private final String dataNasc;
+    private final String naturalidade;
     private String endereco;
     private String contato;
     private int id;
-    private int idEscola;
-
-    private static int contador = diretorBD.getLastId();
+    private final int idEscola;
 
     public Diretor (String nome, String cpf,  String rg, String dataNasc, String naturalidade,
                         String endereco, String contato, int idEscola){
@@ -59,18 +54,6 @@ public class Diretor {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setRg(String rg) { this.rg = rg; }
-
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
-    public void setNaturalidade(String naturalidade) { this.naturalidade = naturalidade; }
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;

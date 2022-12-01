@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class ProfessorBD extends Database {
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
-    private boolean check = false;
-    public boolean insertProfessor(Professor professor) {
+    public void insertProfessor(Professor professor) {
         connect();
         String sql = "INSERT INTO professor(idProfessor,nomeProfessor,cpfProfessor,rgProfessor,dataNascP," +
                 "naturalidadeProfessor,sexoProfessor,cargo,disciplina,endereco,contato) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
@@ -27,11 +26,9 @@ public class ProfessorBD extends Database {
             pst.setString(10, professor.getEndereco());         //concatena nome na 10 ? do comando
             pst.setString(11, professor.getContato());          //concatena nome na 11 ? do comando
             pst.execute();                                                   //executa o comando
-            check = true;
             System.out.println("Professor cadastrado com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
-            check = false;
         } finally {
             try {
                 connection.close();
@@ -40,7 +37,6 @@ public class ProfessorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //------------------------------------AUTO INCREMENT_ID---------------------------------------------//
     public int getLastId() {
@@ -65,7 +61,7 @@ public class ProfessorBD extends Database {
         return id;
     }
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
-    public ArrayList<Professor> researchProfessor(){
+    public void researchProfessor(){
         connect();
         ArrayList<Professor> professores = new ArrayList<>();
         String sql = "SELECT * FROM professor";
@@ -109,10 +105,9 @@ public class ProfessorBD extends Database {
                 System.out.println("Erro ao fechar conexão: " + e.getMessage());
             }
         }
-        return professores;
     }
     //-----------------------------------ATUALIZANDO ENDEREÇO NO REGISTRO----------------------------------------//
-    public boolean updateProfessorEnd(int  id, String endereco){
+    public void updateProfessorEnd(int  id, String endereco){
         connect();
         String sql = "UPDATE professor SET endereco=? WHERE idProfessor=?";
         try {
@@ -120,10 +115,8 @@ public class ProfessorBD extends Database {
             pst.setString(1,endereco);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -132,10 +125,9 @@ public class ProfessorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
-    public boolean updateProfessorCont(int  id, String contato){
+    public void updateProfessorCont(int  id, String contato){
         connect();
         String sql = "UPDATE professor SET contato=? WHERE idProfessor=?";
         try {
@@ -143,10 +135,8 @@ public class ProfessorBD extends Database {
             pst.setString(1,contato);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -155,10 +145,9 @@ public class ProfessorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------------EXCLUINDO REGISTRO----------------------------------------------//
-    public boolean deleteProfessor(int id){
+    public void deleteProfessor(int id){
         connect();
         String sql = "DELETE FROM professor WHERE idProfessor=?";
 
@@ -166,10 +155,8 @@ public class ProfessorBD extends Database {
             pst = connection.prepareStatement(sql);
             pst.setInt(1,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -178,6 +165,49 @@ public class ProfessorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
+    }
+    //----------------------------------ASSOCIAÇÃO PROFESSOR E ESCOLA----------------------------------------------//
+    public void ProfessorEscola(int idProfessor, int idEscola) {
+        connect();
+        String sql = "INSERT INTO Professor_has_Escola (Escola_idEscola, Professor_idProfessor) VALUES (?,?)";
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1,idEscola);                    //concatena nome na 1 ? do comando
+            pst.setInt(2, idProfessor);                //concatena nome na 2 ? do comando
+            pst.execute();                                          //executa o comando
+            System.out.println("ADCIONADO NO BD!");
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+    }
+    //----------------------------------ASSOCIAÇÃO PROFESSOR E TURMA----------------------------------------------//
+    public void ProfessorTurma(int idProfessor, int idTurma) {
+        connect();
+        String sql = "INSERT INTO Professor_has_Turma (Turma_idTurma, Professor_idProfessor) VALUES (?,?)";
+
+        try {
+            pst = connection.prepareStatement(sql);
+            pst.setInt(1,idTurma);                     //concatena nome na 1 ? do comando
+            pst.setInt(2, idProfessor);                //concatena nome na 2 ? do comando
+            pst.execute();                                          //executa o comando
+            System.out.println("ADCIONADO NO BD!");
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
     }
 }

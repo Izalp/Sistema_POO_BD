@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class DiretorBD extends Database {
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
-    private boolean check = false;
-    public boolean insertDiretor(Diretor diretor) {
+    public void insertDiretor(Diretor diretor) {
         connect();
         String sql = "INSERT INTO Diretor (idDiretor,nomeDiretor,cpfDiretor,rgDiretor,dataNascD,naturalidadeDiretor," +
                 "endereco,contato,Escola_idEscola) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -25,11 +24,9 @@ public class DiretorBD extends Database {
             pst.setString(8, diretor.getContato());            //concatena nome na 8 ? do comando
             pst.setInt(9, diretor.getIdEscola());              //concatena nome na 9 ? do comando
             pst.execute();                                                  //executa o comando
-            check = true;
             System.out.println("Diretor cadastrado com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
-            check = false;
         } finally {
             try {
                 connection.close();
@@ -38,32 +35,10 @@ public class DiretorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
-    //----------------------------------------AUTO INCREMENT_ID-------------------------------------------//
-    public int getLastId() {
-        int id = 0;
-        try {
-            String sql = "SELECT idDiretor FROM Diretor ORDER BY idDiretor DESC LIMIT 1";
-            connect();
-            pst = connection.prepareStatement(sql);
-            result = pst.executeQuery();
-            while (result.next())
-                id = result.getInt("idDiretor");
-        } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
-        } finally {
-            try {
-                connection.close();
-                pst.close();
-            } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
-            }
-        }
-        return id;
-    }
+
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
-    public ArrayList<Diretor> researchDiretor(){
+    public void researchDiretor(){
         connect();
         ArrayList<Diretor> diretores = new ArrayList<>();
         String sql = "SELECT * FROM Diretor";
@@ -103,10 +78,9 @@ public class DiretorBD extends Database {
                 System.out.println("Erro ao fechar conexão: " + e.getMessage());
             }
         }
-        return diretores;
     }
     //-----------------------------------ATUALIZANDO ENDERECO NO REGISTRO----------------------------------------//
-    public boolean updateDiretorEnd(int  id, String endereco){
+    public void updateDiretorEnd(int  id, String endereco){
         connect();
         String sqlend = "UPDATE Diretor SET endereco=? WHERE idDiretor=?";
         try {
@@ -114,10 +88,8 @@ public class DiretorBD extends Database {
             pst.setString(1, endereco);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -126,10 +98,9 @@ public class DiretorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
-    public boolean updateDiretorCont(int  id, String contato){
+    public void updateDiretorCont(int  id, String contato){
         connect();
         String sqlcot = "UPDATE Diretor SET contato=?  WHERE idDiretor=?";
         try {
@@ -137,10 +108,8 @@ public class DiretorBD extends Database {
             pst.setString(  1,contato);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -149,10 +118,9 @@ public class DiretorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------------EXCLUINDO REGISTRO----------------------------------------------//
-    public boolean deleteDiretor(int id){
+    public void deleteDiretor(int id){
         connect();
         String sql = "DELETE FROM Diretor WHERE idDiretor=?";
 
@@ -160,10 +128,8 @@ public class DiretorBD extends Database {
             pst = connection.prepareStatement(sql);
             pst.setInt(1,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -172,6 +138,5 @@ public class DiretorBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
 }

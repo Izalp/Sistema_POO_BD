@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class TurmaBD extends Database {
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
-    private boolean check = false;
-    public boolean insertTurma(Turmas turmas) {
+    public void insertTurma(Turmas turmas) {
         int quant = turmas.getNumTurma();
 
         while(quant != 0) {
@@ -22,47 +21,22 @@ public class TurmaBD extends Database {
                 pst.setInt(2, quant);                            //concatena nome na 2 ? do comando
                 pst.setInt(3, turmas.getId());                   //concatena nome na 3 ? do comando
                 pst.execute();                                               //executa o comando
-                check = true;
-                System.out.println("Turma cadastrada com sucesso!");
+                System.out.println("Turma cadastrada com sucesso!\n");
             }
             catch (SQLException e) {
-                System.out.println("Erro na operação: " + e.getMessage());
-                check = false;
+                System.out.println("Erro na operação: " + e.getMessage() + "\n");
             } finally {
                 try {
                     connection.close();
                     pst.close();
                 } catch (SQLException e) {
-                    System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                    System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
                 }
             } quant--;
         }
-        return check;
-    }
-    //-----------------------------------------AUTO INCREMENT_ID----------------------------------------------//
-    public int getLastId() {
-        int id = 0;
-        try {
-            String sql = "SELECT idTurma FROM Turma ORDER BY idTurma DESC LIMIT 1";
-            connect();
-            pst = connection.prepareStatement(sql);
-            result = pst.executeQuery();
-            while (result.next())
-                id = result.getInt("idTurma");
-        } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
-        } finally {
-            try {
-                connection.close();
-                pst.close();
-            } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
-            }
-        }
-        return id;
     }
     //----------------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
-    public ArrayList<Turmas> researchTurmas(){
+    public void researchTurmas(){
         connect();
         ArrayList<Turmas> turmas = new ArrayList<>();
         String sql = "SELECT * FROM Turma";
@@ -84,49 +58,46 @@ public class TurmaBD extends Database {
                 turmas.add(turmaTemp);
             }
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 statement.close();
                 result.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar conexão: " + e.getMessage() + "\n");
             }
         }
-        return turmas;
     }
     //----------------------------------------VALIDANDO TURMA CADASTRADA-------------------------------------------//
-    public int validaTurma (int serie, int numTurma){
+    public int validaTurma (int serie, int numTurma, int idEscola){
 
-        int serieBD;
-        int numTurmaBD;
         int idTurma = 0;
         try {
-            String sql = "SELECT idTurma,serie,numTurma FROM Turma";
+            String sql = "SELECT idTurma FROM Turma WHERE Escola_idEscola = ? AND serie = ? AND numTurma = ?";
+
             connect();
             pst = connection.prepareStatement(sql);
+            pst.setInt(1,idEscola);
+            pst.setInt(2,serie);
+            pst.setInt(3,numTurma);
             result = pst.executeQuery();
-            while (result.next()) {
-                serieBD = result.getInt("serie");
-                numTurmaBD = result.getInt("numTurma");
-                if(serie == serieBD && numTurma == numTurmaBD)
-                    idTurma = result.getInt("idTurma");
-            }
+            while (result.next())
+                idTurma = result.getInt("idTurma");
         }
         catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
         return idTurma;
     }
-    public boolean updateCoordenador(int  id, int idCoordenador){
+    public void updateCoordenador(int  id, int idCoordenador){
         connect();
         String sqlend = "UPDATE Turma SET Coordenador_idCoordenador=? WHERE Escola_idEscola=?";
         try {
@@ -134,18 +105,15 @@ public class TurmaBD extends Database {
             pst.setInt(1,idCoordenador);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
-        return check;
     }
 }

@@ -22,20 +22,19 @@ public class EscolaBD extends Database {
                     validou = true;
             }
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
         return validou;
     }
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
-    private boolean check = false;
-    public boolean insertEscola(Escola escola) {
+    public void insertEscola(Escola escola) {
         connect();
         String sql = "INSERT INTO Escola (idEscola,nomeEscola,cnpjEscola,localizacao,contato) VALUES (?,?,?,?,?)";
 
@@ -47,20 +46,17 @@ public class EscolaBD extends Database {
             pst.setString(4, escola.getLocalizacao());       //concatena nome na 4 ? do comando
             pst.setString(5, escola.getContato());           //concatena nome na 5 ? do comando
             pst.execute();                                                //executa o comando
-            check = true;
-            System.out.println("Escola cadastrada com sucesso!");
+            System.out.println("Escola cadastrada com sucesso!\n");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
-            check = false;
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
-        return check;
     }
     //---------------------------------------AUTO INCREMENT_ID--------------------------------------------//
     public int getLastId() {
@@ -73,19 +69,19 @@ public class EscolaBD extends Database {
             while (result.next())
                 id = result.getInt("idEscola");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
         return id;
     }
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
-    public ArrayList<Escola> researchEscola(){
+    public void researchEscola(){
         connect();
         ArrayList<Escola> escolas = new ArrayList<>();
         String sql = "SELECT * FROM Escola";
@@ -110,20 +106,19 @@ public class EscolaBD extends Database {
                 escolas.add(escolaTemp);
             }
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 statement.close();
                 result.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar conexão: " + e.getMessage() + "\n");
             }
         }
-        return escolas;
     }
     //----------------------------------ATUALIZANDO ENDERECO NO REGISTRO-------------------------------------//
-    public boolean updateEscolaEnd(int  id, String localizacao){
+    public void updateEscolaEnd(int  id, String localizacao){
         connect();
         String sqlend = "UPDATE escola SET localizacao=? WHERE idEscola=?";
         try {
@@ -131,22 +126,19 @@ public class EscolaBD extends Database {
             pst.setString(1,localizacao);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
-        return check;
     }
     //----------------------------------ATUALIZANDO CONTATO NO REGISTRO-------------------------------------//
-    public boolean updateEscolaCont(int  id, String contato){
+    public void updateEscolaCont(int  id, String contato){
         connect();
         String sqlcot = "UPDATE aluno SET contato=?  WHERE id=?";
         try {
@@ -154,22 +146,19 @@ public class EscolaBD extends Database {
             pst.setString(  1,contato);
             pst.setInt(2,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
-        return check;
     }
     //-----------------------------------------EXCLUINDO REGISTRO----------------------------------------------//
-    public boolean deleteEscola(int id){
+    public void deleteEscola(int id){
         connect();
         String sql = "DELETE FROM Escola WHERE idEscola=?";
 
@@ -177,18 +166,15 @@ public class EscolaBD extends Database {
             pst = connection.prepareStatement(sql);
             pst.setInt(1,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
-        return check;
     }
 }

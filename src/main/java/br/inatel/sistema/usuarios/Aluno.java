@@ -1,26 +1,21 @@
 package br.inatel.sistema.usuarios;
 
-import br.inatel.sistema.BD.AlunoBD;
-
 public class Aluno{
-    private static AlunoBD alunoBD = new AlunoBD();
-    private String escolaOrigem;
+    private final String escolaOrigem;
     private String nome;
-    private String cpf;
-    private String rg;
-    private String dataNasc;
-    private String naturalidade;
-    private String sexo;
-    private String nomeFiliacao1;
-    private String nomeFiliacao2;
+    private final String cpf;
+    private final String rg;
+    private final String dataNasc;
+    private final String naturalidade;
+    private final String sexo;
+    private final String nomeFiliacao1;
+    private final String nomeFiliacao2;
     private String endereco;
     private String contato;
     private int matricula;
 
-    private int idTurma;
-    private int idEscola;
-
-    private static int contador = alunoBD.getLastId();
+    private final int idTurma;
+    private final int idEscola;
 
     public Aluno (String escolaOrigem, String nome, String cpf, String rg, String dataNasc, String naturalidade,
                   String sexo, String nomeFiliacao1, String nomeFiliacao2, String endereco, String contato,
@@ -92,32 +87,8 @@ public class Aluno{
         this.matricula = matricula;
     }
 
-    public void setEscolaOrigem(String escolaOrigem) {
-        this.escolaOrigem = escolaOrigem;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-
-    public void setNomeFiliacao1(String nomeFiliacao1) {
-        this.nomeFiliacao1 = nomeFiliacao1;
-    }
-
-    public void setNomeFiliacao2(String nomeFiliacao2) {
-        this.nomeFiliacao2 = nomeFiliacao2;
     }
 
     public void setEndereco(String endereco) {

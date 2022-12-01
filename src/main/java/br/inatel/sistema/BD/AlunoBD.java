@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class AlunoBD extends Database {
     //------------------------------------INSERINDO NOVO REGISTRO---------------------------------------------//
-    private boolean check = false;
-    public boolean insertAluno(Aluno aluno) {
+    public void insertAluno(Aluno aluno) {
         connect();
         String sql = "INSERT INTO aluno (matriculaAluno,escolaOrigem,nomeAluno,cpfAluno,rgAluno,dataNasc, " +
                 "naturalidadeAluno,sexoAluno,nomeFiliacao1,nomeFiliacao2,enderecoAluno,contatoAluno," +
@@ -31,11 +30,9 @@ public class AlunoBD extends Database {
             pst.setInt(13, aluno.getIdTurma());              //concatena nome na 13 ? do comando
             pst.setInt(14, aluno.getIdEscola());             //concatena nome na 14 ? do comando
             pst.execute();                                                //executa o comando
-            check = true;
             System.out.println("Aluno cadastrado com sucesso!");
         } catch (SQLException e) {
             System.out.println("Erro na operação: " + e.getMessage());
-            check = false;
         } finally {
             try {
                 connection.close();
@@ -44,32 +41,9 @@ public class AlunoBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
-    }
-    public int getLastId() {
-        //------------------------------------AUTO INCREMENT_ID---------------------------------------------//
-        int id = 0;
-        try {
-            String sql = "SELECT matriculaAluno FROM Aluno ORDER BY matriculaAluno DESC LIMIT 1";
-            connect();
-            pst = connection.prepareStatement(sql);
-            result = pst.executeQuery();
-            while (result.next())
-                id = result.getInt("matriculaAluno");
-        } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
-        } finally {
-            try {
-                connection.close();
-                pst.close();
-            } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
-            }
-        }
-        return id;
     }
     //-----------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
-    public ArrayList<Aluno> researchAluno(){
+    public void researchAluno(){
         connect();
         ArrayList<Aluno> alunos = new ArrayList<>();
         String sql = "SELECT * FROM aluno";
@@ -115,10 +89,9 @@ public class AlunoBD extends Database {
                 System.out.println("Erro ao fechar conexão: " + e.getMessage());
             }
         }
-        return alunos;
     }
     //-----------------------------------ATUALIZANDO ENDERECO NO REGISTRO----------------------------------------//
-    public boolean updateAlunoEnd(int  matricula, String endereco){
+    public void updateAlunoEnd(int  matricula, String endereco){
         connect();
         String sql = "UPDATE aluno SET enderecoAluno=? WHERE matriculaAluno=?";
         try {
@@ -126,10 +99,8 @@ public class AlunoBD extends Database {
             pst.setString(1, endereco);
             pst.setInt(2,matricula);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -138,10 +109,9 @@ public class AlunoBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
-    public boolean updateAlunoCont(int  matricula, String contato){
+    public void updateAlunoCont(int  matricula, String contato){
         connect();
         String sql = "UPDATE aluno SET contatoAluno=?  WHERE id=?";
         try {
@@ -149,10 +119,8 @@ public class AlunoBD extends Database {
             pst.setString(  1,contato);
             pst.setInt(2,matricula);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -161,10 +129,9 @@ public class AlunoBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------ATUALIZANDO TURMA NO REGISTRO----------------------------------------//
-    public boolean updateTurma (int  matricula, int id){
+    public void updateTurma (int  matricula, int id){
         connect();
         String sql = "UPDATE Aluno SET Turma_idTurma=?  WHERE matriculaAluno=?";
         try {
@@ -172,10 +139,8 @@ public class AlunoBD extends Database {
             pst.setInt( 1,id);
             pst.setInt(2,matricula);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -184,10 +149,9 @@ public class AlunoBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
     //-----------------------------------------EXCLUINDO REGISTRO----------------------------------------------//
-    public boolean deleteAluno(int id){
+    public void deleteAluno(int id){
         connect();
         String sql = "DELETE FROM aluno WHERE matriculaAluno=?";
 
@@ -195,10 +159,8 @@ public class AlunoBD extends Database {
             pst = connection.prepareStatement(sql);
             pst.setInt(1,id);
             pst.execute();
-            check = true;
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage());
-            check = false;
         }finally {
             try {
                 connection.close();
@@ -207,6 +169,5 @@ public class AlunoBD extends Database {
                 System.out.println("Erro ao fechar a conexão: " + e.getMessage());
             }
         }
-        return check;
     }
 }

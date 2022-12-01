@@ -137,14 +137,13 @@ public class Main {
                         int idTurma = 0;
 
                         while(idTurma == 0) {
-                            if (turmaBD.validaTurma(serie,turma) == 0) {
+                            if (turmaBD.validaTurma(serie,turma,idEscola) == 0) {
                                 System.out.println("A serie e turma inserida é inválida!");
                                 System.out.println("\nInsira uma nova série e turma do aluno:");
                                 serie = sc.nextInt();
                                 turma = sc.nextInt();
-                                idTurma = turmaBD.validaTurma(serie,turma);
                             }
-                            idTurma = turmaBD.validaTurma(serie,turma);
+                            idTurma = turmaBD.validaTurma(serie,turma,idEscola);
                         }
 
                         Aluno aluno = new Aluno(escolaOrigem, nome, cpf, rg, dataNasc, naturalidade,
@@ -152,10 +151,10 @@ public class Main {
 
                         alunoBD.insertAluno(aluno);
 
-                    } else if (opcao == 2) {
+                    } else if (opcao == 2)
                         alunoBD.researchAluno(); // BUSCANDO DADOS DE ALUNO CADASTRADO
 
-                    } else if (opcao == 3) {
+                    else if (opcao == 3) {
                         //--------------ATUALIZANDO ENDEREÇO OU CONTATO DO ALUNO------------
                         System.out.println("\nMENU de atualização:\n");
                         System.out.println("1 - Atualizar endereço");
@@ -201,14 +200,13 @@ public class Main {
                             int idTurma = 0;
 
                             while(idTurma == 0) {
-                                if (turmaBD.validaTurma(serieAt,turmaAt) == 0) {
+                                if (turmaBD.validaTurma(serieAt,turmaAt,idEscola) == 0) {
                                     System.out.println("A serie e turma inserida é inválida!");
                                     System.out.println("\nInsira uma nova série e turma do aluno:");
                                     serieAt = sc.nextInt();
                                     turmaAt = sc.nextInt();
-                                    idTurma = turmaBD.validaTurma(serieAt,turmaAt);
                                 }
-                                idTurma = turmaBD.validaTurma(serieAt,turmaAt);
+                                idTurma = turmaBD.validaTurma(serieAt,turmaAt,idEscola);
                             }
                             alunoBD.updateTurma(matriculaAt, idTurma);
                         }
@@ -280,10 +278,42 @@ public class Main {
 
                         professorBD.insertProfessor(professor);
 
-                    } else if (opcao1 == 2) {
+                        int idProfessor = professorBD.getLastId();
+
+                        System.out.println("id: " + idProfessor);
+
+                        professorBD.ProfessorEscola(idProfessor,idEscola);
+
+                        int choice;
+                        int serie;
+                        int turma;
+                        int idTurma = 0;
+                        do{
+                        System.out.println("Insira a serie e turma onde o professor atua:");
+                        serie = sc.nextInt();
+                        turma = sc.nextInt();
+
+                        while(idTurma == 0) {
+                            if (turmaBD.validaTurma(serie,turma,idEscola) == 0) {
+                                System.out.println("A serie e turma inserida é inválida!");
+                                System.out.println("\nInsira uma nova série e turma para o professor:");
+                                serie = sc.nextInt();
+                                turma = sc.nextInt();
+                            }
+                            idTurma = turmaBD.validaTurma(serie,turma,idEscola);
+                        }
+                            professorBD.ProfessorTurma(idProfessor, idTurma);
+
+                            System.out.println("Continuar inserindo turmas?");
+                            System.out.println("1 - Sim");
+                            System.out.println("2 - Não");
+                            choice = sc.nextInt();
+                        }while (choice != 0);
+
+                    } else if (opcao1 == 2)
                         professorBD.researchProfessor();  // BUSCANDO DADOS DE PROFESSOR CADASTRADO
 
-                    } else if (opcao1 == 3) {
+                    else if (opcao1 == 3) {
                         //----------ATUALIZANDO ENDEREÇO OU CONTATO DO PROFESSOR------------
                         System.out.println("\nMENU de atualização:\n");
                         System.out.println("1 - Atualizar endereço");
@@ -545,12 +575,12 @@ public class Main {
 
         idEscola = escolaBD.getLastId();
 
-        System.out.println("Para finalizarmos, insira a quantidade de turmas para cada respectiva série:");
+        System.out.println("\nPara finalizarmos, insira a quantidade de turmas para cada respectiva série:");
         for (int i = 0; i < 9; i++) {
             int turmas;
             int serie = i + 1;
 
-            System.out.println("Quantidade de turmas para " + serie + "º ano: \n");
+            System.out.println("Quantidade de turmas para " + serie + "º ano:");
             turmas = sc.nextInt();
 
             if (turmas != 0) {
@@ -558,6 +588,7 @@ public class Main {
                 turmaBD.insertTurma(turma);
             }
         }
+        System.out.println("Abaixo estão os dados registrados pra escola cadastrada:");
         escolaBD.researchEscola();  // APRESENTAÇÃO DE ID DA ESCOLA PARA PRIMEIRO ACESSO AO SISTEMA
     }
 }
