@@ -105,6 +105,7 @@ public class TurmaBD extends Database {
             pst.setInt(1,idCoordenador);
             pst.setInt(2,id);
             pst.execute();
+            System.out.println("Entrou!");
         }catch (SQLException e){
             System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {

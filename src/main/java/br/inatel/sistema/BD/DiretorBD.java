@@ -24,15 +24,15 @@ public class DiretorBD extends Database {
             pst.setString(8, diretor.getContato());            //concatena nome na 8 ? do comando
             pst.setInt(9, diretor.getIdEscola());              //concatena nome na 9 ? do comando
             pst.execute();                                                  //executa o comando
-            System.out.println("Diretor cadastrado com sucesso!");
+            System.out.println("Diretor cadastrado com sucesso!\n");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -68,14 +68,14 @@ public class DiretorBD extends Database {
                 diretores.add(diretorTemp);
             }
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 statement.close();
                 result.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -89,13 +89,13 @@ public class DiretorBD extends Database {
             pst.setInt(2,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -109,13 +109,13 @@ public class DiretorBD extends Database {
             pst.setInt(2,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -129,13 +129,13 @@ public class DiretorBD extends Database {
             pst.setInt(1,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }

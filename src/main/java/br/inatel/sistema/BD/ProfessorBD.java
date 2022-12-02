@@ -26,15 +26,15 @@ public class ProfessorBD extends Database {
             pst.setString(10, professor.getEndereco());         //concatena nome na 10 ? do comando
             pst.setString(11, professor.getContato());          //concatena nome na 11 ? do comando
             pst.execute();                                                   //executa o comando
-            System.out.println("Professor cadastrado com sucesso!");
+            System.out.println("Professor cadastrado com sucesso!\n");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -49,13 +49,13 @@ public class ProfessorBD extends Database {
             while (result.next())
                 id = result.getInt("idProfessor");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
         return id;
@@ -95,14 +95,14 @@ public class ProfessorBD extends Database {
                 professores.add(professorTemp);
             }
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 statement.close();
                 result.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -116,13 +116,13 @@ public class ProfessorBD extends Database {
             pst.setInt(2,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -136,13 +136,13 @@ public class ProfessorBD extends Database {
             pst.setInt(2,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -156,13 +156,13 @@ public class ProfessorBD extends Database {
             pst.setInt(1,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -178,13 +178,13 @@ public class ProfessorBD extends Database {
             pst.execute();                                          //executa o comando
             System.out.println("ADCIONADO NO BD!");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -198,15 +198,15 @@ public class ProfessorBD extends Database {
             pst.setInt(1,idTurma);                     //concatena nome na 1 ? do comando
             pst.setInt(2, idProfessor);                //concatena nome na 2 ? do comando
             pst.execute();                                          //executa o comando
-            System.out.println("ADCIONADO NO BD!");
+            System.out.println("ADCIONADO NO BD!\n");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }

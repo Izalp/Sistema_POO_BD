@@ -113,7 +113,7 @@ public class Main {
                         String nomeFiliacao1;
                         nomeFiliacao1 = sc.nextLine();
 
-                        System.out.println("\nInsira o nome completo da filiação 2(pai): ");
+                        System.out.println("\nInsira o nome completo da filiação 2 (pai): ");
                         String nomeFiliacao2;
                         nomeFiliacao2 = sc.nextLine();
 
@@ -280,18 +280,18 @@ public class Main {
 
                         int idProfessor = professorBD.getLastId();
 
-                        System.out.println("id: " + idProfessor);
-
                         professorBD.ProfessorEscola(idProfessor,idEscola);
 
                         int choice;
                         int serie;
                         int turma;
-                        int idTurma = 0;
+
                         do{
                         System.out.println("Insira a serie e turma onde o professor atua:");
                         serie = sc.nextInt();
                         turma = sc.nextInt();
+
+                        int idTurma = 0;
 
                         while(idTurma == 0) {
                             if (turmaBD.validaTurma(serie,turma,idEscola) == 0) {
@@ -308,7 +308,7 @@ public class Main {
                             System.out.println("1 - Sim");
                             System.out.println("2 - Não");
                             choice = sc.nextInt();
-                        }while (choice != 0);
+                        }while (choice != 2);
 
                     } else if (opcao1 == 2)
                         professorBD.researchProfessor();  // BUSCANDO DADOS DE PROFESSOR CADASTRADO
@@ -420,7 +420,7 @@ public class Main {
 
                     int idCoordenador = escolaBD.getLastId();
 
-                    turmaBD.updateCoordenador(idEscola, idCoordenador);
+                    turmaBD.updateCoordenador(idCoordenador,idEscola);
                 }
                 case 5 -> escolaBD.researchEscola(); // BUSCANDO DADOS DE ESCOLA CADASTRADA
                 case 6 -> diretorBD.researchDiretor(); // BUSCANDO DADOS DE DIRETOR CADASTRADO

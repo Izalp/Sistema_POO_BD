@@ -30,15 +30,15 @@ public class AlunoBD extends Database {
             pst.setInt(13, aluno.getIdTurma());              //concatena nome na 13 ? do comando
             pst.setInt(14, aluno.getIdEscola());             //concatena nome na 14 ? do comando
             pst.execute();                                                //executa o comando
-            System.out.println("Aluno cadastrado com sucesso!");
+            System.out.println("Aluno cadastrado com sucesso!\n");
         } catch (SQLException e) {
-            System.out.println("Erro na operação: " + e.getMessage());
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
         } finally {
             try {
                 connection.close();
                 pst.close();
             } catch (SQLException e) {
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -79,14 +79,14 @@ public class AlunoBD extends Database {
                 alunos.add(alunoTemp);
             }
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 statement.close();
                 result.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -100,13 +100,13 @@ public class AlunoBD extends Database {
             pst.setInt(2,matricula);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -120,13 +120,13 @@ public class AlunoBD extends Database {
             pst.setInt(2,matricula);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -140,13 +140,13 @@ public class AlunoBD extends Database {
             pst.setInt(2,matricula);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
@@ -160,13 +160,13 @@ public class AlunoBD extends Database {
             pst.setInt(1,id);
             pst.execute();
         }catch (SQLException e){
-            System.out.println("Erro de operação: " + e.getMessage());
+            System.out.println("Erro de operação: " + e.getMessage() + "\n");
         }finally {
             try {
                 connection.close();
                 pst.close();
             }catch (SQLException e){
-                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
             }
         }
     }
