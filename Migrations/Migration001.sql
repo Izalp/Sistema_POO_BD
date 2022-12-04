@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Diretor` (
   `idDiretor` INT NOT NULL AUTO_INCREMENT,
   `nomeDiretor` VARCHAR(50) NOT NULL,
   `cpfDiretor` VARCHAR(14) NOT NULL,
-  `rgDiretor` VARCHAR(12) NOT NULL,
+  `rgDiretor` VARCHAR(13) NOT NULL,
   `dataNascD` VARCHAR(10) NOT NULL,
   `NaturalidadeDiretor` VARCHAR(50) NOT NULL,
   `endereco` VARCHAR(80) NOT NULL,
@@ -222,12 +222,9 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-SELECT * FROM `Aluno`;
-SELECT * FROM `Professor`;
-SELECT * FROM `Escola`;
-SELECT * FROM `Diretor`;
-SELECT * FROM `Coordenador`;
-SELECT * FROM `Turma`;
-
-SELECT * FROM `Professor_has_Escola`;
-SELECT * FROM `Professor_has_Turma`;
+SELECT * FROM mydb.`Aluno`;
+SELECT * FROM mydb.`Professor`;
+SELECT * FROM mydb.`Escola`;
+SELECT * FROM mydb.`Diretor`;
+SELECT * FROM mydb.`Coordenador`;
+SELECT * FROM mydb.`Turma`;

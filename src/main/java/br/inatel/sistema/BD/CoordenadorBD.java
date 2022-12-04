@@ -36,6 +36,28 @@ public class CoordenadorBD extends Database {
             }
         }
     }
+    //------------------------------------AUTO INCREMENT_ID---------------------------------------------//
+    public int getLastId() {
+        int id = 0;
+        try {
+            String sql = "SELECT idProfessor FROM Professor ORDER BY idProfessor DESC LIMIT 1";
+            connect();
+            pst = connection.prepareStatement(sql);
+            result = pst.executeQuery();
+            while (result.next())
+                id = result.getInt("idProfessor");
+        } catch (SQLException e) {
+            System.out.println("Erro na operação: " + e.getMessage() + "\n");
+        } finally {
+            try {
+                connection.close();
+                pst.close();
+            } catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage() + "\n");
+            }
+        }
+        return id;
+    }
     //----------------------------------------BUSCANDO TODOS OS REGISTROS-------------------------------------------//
     public void researchCoordenador(){
         connect();

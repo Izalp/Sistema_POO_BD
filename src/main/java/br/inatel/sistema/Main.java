@@ -416,16 +416,17 @@ public class Main {
                     contato = sc.nextLine();
 
                     Coordenador coordenador = new Coordenador(nome, cpf, rg, dataNasc, naturalidade, endereco, contato, idEscola);
+
                     coordenadorBD.insertCoordenador(coordenador);
 
-                    int idCoordenador = escolaBD.getLastId();
+                    int idCoordenador = coordenadorBD.getLastId();
 
                     turmaBD.updateCoordenador(idCoordenador,idEscola);
                 }
                 case 5 -> escolaBD.researchEscola(); // BUSCANDO DADOS DE ESCOLA CADASTRADA
                 case 6 -> diretorBD.researchDiretor(); // BUSCANDO DADOS DE DIRETOR CADASTRADO
-                case 7 -> coordenadorBD.researchCoordenador(); //BUSCANDO DADOS DE COORDENADOR CADASTRADO
-                case 8 -> turmaBD.researchTurmas(); //BUSCANDO TURMAS CADASTRADAS
+                case 7 -> coordenadorBD.researchCoordenador(); // BUSCANDO DADOS DE COORDENADOR CADASTRADO
+                case 8 -> turmaBD.researchTurmas(); // BUSCANDO TURMAS CADASTRADAS
                 case 9 -> {
                     //----------ATUALIZANDO LOCALIZAÇÃO OU CONTATO DA ESCOLA CADASTRADA--------------
                     System.out.println("\nMENU de atualização:\n");
@@ -551,7 +552,7 @@ public class Main {
         EscolaBD escolaBD = new EscolaBD();
         TurmaBD turmaBD = new TurmaBD();
 
-        System.out.println("\nO Id inserido não consta no sistema!\n");
+        System.out.println("O Id inserido não consta no sistema!\n");
         System.out.println("Para utilização do sistema, por favor insira os respectivos dados a seguir:");
         System.out.println("Insira o nome da escola:");
         String nomeEscola;

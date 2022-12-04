@@ -113,7 +113,7 @@ public class AlunoBD extends Database {
     //-----------------------------------ATUALIZANDO CONTATO NO REGISTRO----------------------------------------//
     public void updateAlunoCont(int  matricula, String contato){
         connect();
-        String sql = "UPDATE aluno SET contatoAluno=?  WHERE id=?";
+        String sql = "UPDATE aluno SET contatoAluno=?  WHERE matriculaAluno=?";
         try {
             pst = connection.prepareStatement(sql);
             pst.setString(  1,contato);

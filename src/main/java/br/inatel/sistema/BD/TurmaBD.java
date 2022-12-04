@@ -97,7 +97,7 @@ public class TurmaBD extends Database {
         }
         return idTurma;
     }
-    public void updateCoordenador(int  id, int idCoordenador){
+    public void updateCoordenador(int idCoordenador, int  id){
         connect();
         String sqlend = "UPDATE Turma SET Coordenador_idCoordenador=? WHERE Escola_idEscola=?";
         try {
